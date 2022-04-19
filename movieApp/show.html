@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: black;
+        }
+       #main{
+            display:flex;
+           background-color: rgb(49, 49, 49);
+           color:white;
+            margin:auto;
+            width:60%;
+            margin-top:10%;
+            gap:50px;
+        }
+        #main>div{
+            font-size:20px;
+             margin-top:50px;
+            font-weight:500;
+
+        }
+        img{
+            height:370px;
+            width:350px;
+        }
+     </style>   
+
+</head>
+<body>
+    <div id="main"></div>
+</body>
+</html>
+
+<script>
+          function getMovies(){
+        let se=JSON.parse(localStorage.getItem('clicked_movie'))
+    console.log(se)
+    appendData(se)
+       }
+   getMovies() 
+
+
+function appendData(elem){
+  
+      
+         let image=document.createElement("img")
+         image.src=elem.Poster
+         image.setAttribute("id","smallimg")
+
+         let div=document.createElement('div')
+         
+
+         let title=document.createElement("p")
+         title.innerHTML=`Title : ${elem.Title}`
+         title.setAttribute('id','title')
+
+         let type=document.createElement("p")
+         type.innerHTML=`Type : ${elem.Type}`
+
+         let year=document.createElement("p")
+         year.innerHTML=`Release Year : ${elem.Year}`
+
+         let rate=(Math.random()*(9.5-4.5+1)+4.5).toFixed(1);
+         let id=document.createElement("h4")
+         id.innerHTML=`IMDB Ratings : ${rate}`
+         if(rate>8.5){
+             id.innerHTML="Recommended"
+         }
+
+         let id1=document.createElement("p")
+         id1.innerHTML=`IMDB_id : ${elem.imdbID}`
+        
+         div.append(title,type,year,id,id1)
+         
+         document.getElementById('main').append(image,div)
+    
+  
+ 
+
+ }
+
+</script>

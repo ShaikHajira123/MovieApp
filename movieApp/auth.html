@@ -1,0 +1,135 @@
+ <!DOCTYPE html>
+  <html lang="en">
+   <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: rgb(141, 52, 224);
+        }
+        #container {
+          display: flex;
+          justify-content:space-evenly;
+          width:70%;
+          margin:auto;
+          margin-top:10%;
+        }
+    
+        form {
+          width: 10%;
+        }
+    
+        input {
+          margin-top: 5%;
+          line-height: 25px;
+          padding:0 20px 0 20px;
+          margin:10px;
+        }
+        button{
+            color:white;
+            background-color: black;
+            padding:10px;
+        }
+      </style>
+</head>
+<body>
+    <button onclick="window.location.href='index.html'">Back To Home Page</button>
+    <div id="container">
+        <div id="register-form">
+            <h1>Register</h1>
+            <form action="">
+            <input type="text" id='name' placeholder="Name">
+            <input type="email" id="email" placeholder="Email">
+            <input type="password" id='password' placeholder="Password">
+            <input type="text" id='username' placeholder="UserName">
+            <input type="number" id='mobile' placeholder="Number">
+            <input type="text" id='description' placeholder="Description">
+            </form>
+            <button onclick="Register()">Register</button>
+        </div>
+
+        <div id="login-form">
+            <h1>Login</h1>
+            <form>
+              <input type="text" id="login-username" placeholder="Name" />
+              <input type="password" id="login-password" placeholder="Password" />
+            </form>
+            <button onclick="setLogin()">Login</button>
+          </div>
+    </div>
+</body>
+</html>
+
+<script >
+    //api link - https://masai-api-mocker.herokuapp.com/auth/login
+
+    let Register = async ()=>{
+          try{
+        let registerData={
+            name:document.getElementById('name').value,
+            email:document.getElementById('email').value,  
+            password:document.getElementById('password').value,
+            username:document.getElementById('username').value,
+            mobile:document.getElementById('mobile').value,
+            description:document.getElementById('description').value,
+        }
+        registerData = JSON.stringify(registerData)
+        
+       let res = await fetch(' https://masai-api-mocker.herokuapp.com/auth/register',{
+           method:'POST',
+           body:registerData,
+
+           headers:{
+               "Content-Type":"application/json"
+
+           },
+       })
+     let data = await res.json()
+     console.log(data)
+        }catch(err){
+            console.log(err)
+        }
+    }
+
+   let setLogin=async()=>{
+        try{
+            let loginData={
+             username:document.getElementById('login-username').value,
+              password:document.getElementById('login-password').value,
+        }
+        let login_data_json = JSON.stringify(loginData)
+            let res = await fetch('https://masai-api-mocker.herokuapp.com/auth/login',{
+                method:'POST',
+                body : login_data_json,
+                 headers :{
+                    "Content-Type":"application/json",
+                },
+            });
+            let data=await res.json()
+            console.log(data)
+
+            getUser(loginData.username,data.token)
+        }catch(error){
+        console.log(error)
+        }
+    }
+
+    
+    let getUser = async(username , token)=>{
+        try{
+        let res = await fetch(`https://masai-api-mocker.herokuapp.com/user/${username}`,{
+          
+            headers:{
+                    "Content-Type":"application/json",
+                   "Authorization": `Bearer ${token}`,
+                },
+        })
+        let data=await res.json()
+            console.log(data)
+    }catch(error){
+        console.log(error)
+    }
+    };
+  </script>
