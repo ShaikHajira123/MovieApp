@@ -15,7 +15,7 @@ Solo project developed in 2 days. Features-used: local storage and DOM.Added deb
 
 #### I have deployed this app in netlify,Please click on this link to view my project
 
-**Deploy link** http://movieapphajira.netlify.app
+**Deploy link** http://hajiramovieapp.netlify.app/
 
 https://user-images.githubusercontent.com/97529565/165755140-dec29570-a825-4f4e-ac80-b6d563186a0f.mp4
 
